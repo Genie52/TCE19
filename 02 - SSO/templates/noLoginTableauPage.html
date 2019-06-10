@@ -1,0 +1,100 @@
+
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>No LOGIN Tableau Embedded Page!</title>
+    <script type="text/javascript" src="http://localhost/javascripts/api/tableau-2.min.js"></script>
+
+    <script type="text/javascript">
+        var viz; //we need this to be semi-global so we can reference it via multiple functions
+
+        function initViz()
+        {
+            var containerDiv = document.getElementById("vizContainer"),
+                url = "http://localhost/views/Regional/College",
+                options =
+                {
+                    "Academic Year" : "", //specifying the filter value before loading the viz - for example we could say "Aacademic Year" : "2014"
+                    "Gender" : "",
+                    height: "700px",
+                    width: "800px",
+                    hideTabs: true,
+                    hideToolbar: true,
+                    onFirstInteractive: function ()
+                    {
+                        console.log("Run this code when the viz has finished loading.");
+                    }
+                }
+
+
+            viz = new tableau.Viz(containerDiv, url, options);
+            // Create a viz object and embed it in the container div.
+        }
+
+        function yearFilter(year)
+        {
+          var sheet = viz.getWorkbook().getActiveSheet();
+          if (year == "")
+          {
+              sheet.clearFilterAsync("Academic Year");
+          }
+          else
+          {
+              sheet.applyFilterAsync("Academic Year", year, tableau.FilterUpdateType.REPLACE);
+          }
+        }
+
+        function genderFilter(gender)
+        {
+          var sheet = viz.getWorkbook().getActiveSheet();
+
+          if (gender == "")
+          {
+            sheet.clearFilterAsync("Gender");
+          }
+          else
+          {
+            sheet.applyFilterAsync("Gender", gender, tableau.FilterUpdateType.REPLACE);
+          }
+
+        }
+    </script>
+
+  </head>
+  <body onload="initViz();">
+    <table style="width:100%;border: 1px solid black;">
+      <tr>
+        <td style="width:33%"><img src="static\logo.png" alt="" align="left" style="width:226px;height:47px;"></td>
+        <td style="width:33% ;font-family:arial;font-size: x-large;" align="middle" >Tableau Embedded TCE 19 - No Log in page. </td>
+        <td style="width:33%"><img src="static\logo.png" alt="" align="right" style="width:226px;height:47px;"></td>
+      </tr>
+    </table>
+
+    <div id="controls1" style="padding:20px;font-family:courier;">
+        Year: <select id="changeYear" onchange="yearFilter(value);">
+            <option value="">All</option>
+            <option value="2013">2013</option>
+            <option value="2014">2014</option>
+        </select>
+        &nbsp;&nbsp;
+        Gender: <select id="changeGender" onchange="genderFilter(value);">
+            <option value="">All</option>
+            <option value="Men">Men</option>
+            <option value="Women">Women</option>
+        </select>
+    </div>
+    <table style="width:100%;border: 1px solid black;">
+      <tr>
+        <td style="width: 800px"><div id="vizContainer"></div></td>
+        <td><iframe src="https://en.wikipedia.org/wiki/College_admissions_in_the_United_States" width="100%" height="700px"></iframe></td>
+      </tr>
+    </table>
+    &nbsp;
+    <table style="width:100%;border: 1px solid black;">
+      <tr>
+        <td align="middle" style="font-family:courier;font-size: small">Copyright by This is NOT a Web Design Hands-On(tm)</td>
+      </tr>
+    </table>
+
+  </body>
+</html>
