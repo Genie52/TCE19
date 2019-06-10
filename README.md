@@ -1,2 +1,2 @@
 # TCE19
-Manuals for Hanson
+Manuals for Handson
