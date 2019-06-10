@@ -13,7 +13,7 @@ def index():
 # this is the URL path we gonna use to access this page! eg. http://localhost:5000/tableauinfo
 @app.route('/tableauinfo')
 def tableauinfo():
-    return '<h1>Tableau is the Best!</h1>'
+    return '<h1>Tableau is the Best!</h1>'  # returning HTML code!
 
 # You can add variable sections to a URL by marking sections with <variable_name>.
 # Your function then receives the <variable_name> as a keyword argument.
@@ -21,7 +21,7 @@ def tableauinfo():
 # this is a dynamic URL that expects a parameter - eg. http://localhost:5000/participant/Sophie
 @app.route('/participant/<name>')
 def participant(name):
-    return '<h1>Hello {}, welcome to TCE 19!<h1>'.format(name)
+    return '<h1>Hello {}, welcome to TCE 19!<h1>'.format(name) # returning HTML code with some dynamic properties! (name)
 #------- PASTE CODE HERE!! <<< END >>> ------------------
 
 # this just means RUN THE APP!! (our web server)
