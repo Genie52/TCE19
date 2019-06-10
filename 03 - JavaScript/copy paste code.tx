@@ -1,0 +1,136 @@
+#01
+<script type="text/javascript" src="http://localhost/javascripts/api/tableau-2.min.js"></script>
+
+#02
+<script type="text/javascript">
+    var viz, sheet; //we need this to be semi-global so we can reference it via multiple functions
+
+    function initViz()
+    {
+        var containerDiv = document.getElementById("vizContainer"),
+            url = "http://localhost/trusted/{{tableau_ticket}}/views/Regional/College",
+            options =
+            {
+                height: "700px",
+                width: "800px",
+                hideTabs: true,
+                hideToolbar: true,
+                onFirstInteractive: function () //this function fires only once when the viz is first time rendered - think of it as init function
+                {
+                    sheet = viz.getWorkbook().getActiveSheet();
+
+                    //07b PASTE IT HERE BELOW
+                    console.log("Run this code when the viz has finished loading.");
+                }
+            }
+        viz = new tableau.Viz(containerDiv, url, options); // Create a viz object and embed it in the container div.
+    }
+
+    //05 PASTE IT HERE BELOW!!
+
+
+    //06 PASTE IT HERE BELOW!!
+
+
+    //07a PASTE IT HERE BELOW!
+</script>
+
+#03
+<body onload="initViz();">
+
+#04
+<div id="controls1" style="padding:20px;font-family:courier;">
+    <button onclick="clearSelection();">Clear Selection</button>
+    &nbsp;&nbsp;
+    <button onclick="clearAll();">Clear All</button>
+    &nbsp;&nbsp;
+    Year:
+    <select id="changeYear" onchange="yearFilter(value);">
+      <option value="">All</option>
+      <option value="2013">2013</option>
+      <option value="2014">2014</option>
+    </select>
+    &nbsp;&nbsp;
+    Gender:
+    <select id="changeGender" onchange="genderFilter(value);">
+      <option value="">All</option>
+      <option value="Men">Men</option>
+      <option value="Women">Women</option>
+    </select>
+</div>
+
+#05
+function clearSelection()
+{
+     sheet.clearSelectedMarksAsync();
+}
+
+function clearAll()
+{
+     viz.revertAllAsync();
+}
+
+#06
+function yearFilter(year)
+{
+  //var sheet = viz.getWorkbook().getActiveSheet();
+  if (year == "")
+  {
+      sheet.clearFilterAsync("Academic Year");
+  }
+  else
+  {
+      sheet.applyFilterAsync("Academic Year", year, tableau.FilterUpdateType.REPLACE);
+  }
+}
+
+function genderFilter(gender)
+{
+  //var sheet = viz.getWorkbook().getActiveSheet();
+
+  if (gender == "")
+  {
+    sheet.clearFilterAsync("Gender");
+  }
+  else
+  {
+    sheet.applyFilterAsync("Gender", gender, tableau.FilterUpdateType.REPLACE);
+  }
+}
+
+#07a
+function listenToMarksSelection()
+{
+    viz.addEventListener(tableau.TableauEventName.MARKS_SELECTION, onMarksSelection);
+}
+
+function onMarksSelection(marksEvent)
+{
+    return marksEvent.getMarksAsync().then(reportSelectedMarks);
+}
+
+function reportSelectedMarks(marks)
+{
+    var html = "Selected DATA will go here!<p>";
+
+    for (var markIndex = 0; markIndex < marks.length; markIndex++)
+    {
+        var pairs = marks[markIndex].getPairs();
+        html += "<b>Mark " + markIndex + ":</b><ul>";
+
+        for (var pairIndex = 0; pairIndex < pairs.length; pairIndex++)
+        {
+            var pair = pairs[pairIndex];
+            html += "<li><b>Field Name:</b> " + pair.fieldName;
+            html += "<br/><b>Value:</b> " + pair.formattedValue + "</li>";
+        }
+
+        html += "</ul>";
+    }
+
+    var infoDiv = document.getElementById('eventData');
+    infoDiv.innerHTML = html;
+}
+
+#07b
+  listenToMarksSelection(); // EVENT listener

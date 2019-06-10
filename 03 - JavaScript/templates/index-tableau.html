@@ -1,0 +1,73 @@
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Tableau Embedded TCE 19</title>
+  </head>
+  <body>
+    <table style="width:100%;border: 1px solid black;">
+      <tr>
+        <td style="width:33%"><img src="static\logo.png" alt="" align="left" style="width:226px;height:47px;"></td>
+        <td style="width:33% ;font-family:arial;font-size: large;" align="middle" >Tableau Embedded TCE 19 -
+          {% if username %}
+            Welcome {{username}} ! <p></p> Your Tableau Ticket is {{tableau_ticket_return.text}} <p></p> <a href="{{url_for('loginTableauPage')}}">Click here for SSO experience!</a>
+          {% else %}
+            Please LOG IN!
+          {% endif %}
+
+        </td>
+        <td style="width:33%"><img src="static\logo.png" alt="" align="right" style="width:226px;height:47px;"></td>
+      </tr>
+    </table>
+<p></p>
+    <table style="width:100%;border: 1px solid black;">
+      <tr>
+        <td>&nbsp;</td>
+        <td align="middle" style="width: 1920px;background-image:url('static/background.jpg')">
+
+          <table>
+            <tr>
+              <td><p><p></p></p></td>
+            </tr>
+            <tr><td align="middle" style="font-family:arial;font-size: large;">Changing the way you think about data</td></tr>
+            <tr>
+              <td><p><p></p></p></td>
+            </tr>
+            <tr><td><video width="572" height="358" src="static\tableau.mp4" autoplay loop></video></td></tr>
+            <tr>
+              <td style="font-family:arial;font-size: large;" align="middle"><p>&nbsp;</p><p>&nbsp;</p><h4>Please log in:</h4><p></p>
+
+                <!-- PASTE CODE - START HERE!!! -->
+                <form method="POST">
+                  {{form.hidden_tag()}}
+                  <table style="width:300px;border: 1px solid black;" align="middle">
+                    <tr>
+                      <td>{{form.username.label}}{{form.username()}}</td><td></td>
+                    </tr>
+                    <tr>
+                      <td>{{form.password.label}} {{form.password()}}</td><td></td>
+                    </tr>
+                    <tr>
+                      <td align="middle">{{form.submitForm()}}</td>
+                    </tr>
+                  </table>
+                </form>
+                <!-- PASTE CODE - END HERE!!! -->
+
+              </td>
+            </tr>
+          </table>
+
+        </td>
+        <td>&nbsp;</td>
+      </tr>
+    </table>
+    <p></p>
+    
+    <table style="width:100%;border: 1px solid black;">
+      <tr>
+        <td align="middle" style="font-family:courier;font-size: small">Copyright by This is NOT a Web Design Hands-On(tm)</td>
+      </tr>
+    </table>
+
+  </body>
+</html>
