@@ -1,0 +1,40 @@
+#01a
+<p>Workbook name:</p>
+<!-- flask python code start -->
+{% for workbook in all_workbooks %}
+<p style="color: red">{{workbook.name}} </p>
+{% endfor %}
+<!-- flask python code end -->
+
+#01b
+<p>Workbook LUID:</p>
+<!-- flask python code start -->
+{% for workbook in all_workbooks %}
+<p style="color: red">{{workbook.id}} </p>
+{% endfor %}
+<!-- flask python code end -->
+
+#02a
+<p>Workbook name:</p>
+<!-- flask python code start -->
+{% for workbook in matching_user[0].workbooks %}
+<p style="color: red">{{workbook.name}}</p>
+{% endfor %}
+<!-- flask python code end -->
+
+#02b
+<p>Workbook LUID:</p>
+<!-- flask python code start -->
+{% for workbook in matching_user[0].workbooks %}
+<p style="color: red">{{workbook.id}}</p>
+{% endfor %}
+<!-- flask python code end -->
+
+#03
+{% for wb in workbook_list %}
+<p><b>Workbook name:</b> {{wb.name}}</p>
+  Views: <p>
+  {% for view in wb.views %}
+  <a href="#">{{view.name}}</a><p>
+  {% endfor %}
+{% endfor %}

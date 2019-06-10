@@ -1,0 +1,113 @@
+
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>LOGIN Tableau Embedded Page!</title>
+    <script type="text/javascript" src="http://localhost/javascripts/api/tableau-2.min.js"></script>
+
+  </head>
+  <body>
+    <table style="width:100%;border: 1px solid black;">
+      <tr>
+        <td style="width:33%"><img src="static\logo.png" alt="" align="left" style="width:226px;height:47px;"></td>
+        <td style="width:33% ;font-family:arial;font-size: large;" align="middle">Tableau Embedded TCE 19 - Welcome <b style="color: red">{{username}}</b>!</td>
+        <td style="width:33%"><img src="static\logo.png" alt="" align="right" style="width:226px;height:47px;"></td>
+      </tr>
+    </table>
+    <p>&nbsp;</p>
+
+
+    <table style="width:100%;border: 1px solid black;">
+      <tr>
+
+        <td width="33%" valign="top">
+          <table style="width:100%;border: 1px solid black;">
+            <tr>
+              <td><b>All the Workbooks on the Server</b></td><td>&nbsp;</td>
+            </tr>
+            <tr>
+              <td>
+                <p>Workbook name:</p>
+
+                <!-- flask python code start -->
+                {% for workbook in all_workbooks %}
+                <p style="color: red">{{workbook.name}} </p>
+                {% endfor %}
+                <!-- flask python code end -->
+
+              </td>
+              <td>
+                <p>Workbook LUID:</p>
+
+                <!-- flask python code start -->
+                {% for workbook in all_workbooks %}
+                <p style="color: red">{{workbook.id}} </p>
+                {% endfor %}
+                <!-- flask python code end -->
+
+              </td>
+            </tr>
+          </table>
+
+        </td>
+        <td width="33%" valign="top">
+          <table style="width:100%;border: 1px solid black;">
+            <tr>
+              <td><b>Workboks available to <b style="color: red">{{username}}</b> on Tableau Server</b></td><td>&nbsp;</td>
+            </tr>
+            <tr>
+              <td>
+                <p>Workbook name:</p>
+
+                <!-- flask python code start -->
+                {% for workbook in matching_user[0].workbooks %}
+                <p style="color: red">{{workbook.name}}</p>
+                {% endfor %}
+                <!-- flask python code end -->
+
+
+
+              </td>
+              <td>
+                <p>Workbook LUID:</p>
+
+                <!-- flask python code start -->
+                {% for workbook in matching_user[0].workbooks %}
+                <p style="color: red">{{workbook.id}}</p>
+                {% endfor %}
+                <!-- flask python code end -->
+
+              </td>
+            </tr>
+          </table>
+        </td>
+        <td width "33%">
+          <table style="width:100%;border: 1px solid black;">
+            <tr>
+              <td><b>Workboks and Views available to <b style="color: red">{{username}}</b> on Tableau Server</b></td><td>&nbsp;</td>
+            </tr>
+            <tr>
+              <td>
+                {% for wb in workbook_list %}
+                <p><b>Workbook name:</b> {{wb.name}}</p>
+                  Views: <p>
+                  {% for view in wb.views %}
+                  <a href="#">{{view.name}}</a><p>
+                  {% endfor %}
+                {% endfor %}
+              </td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+    </table>
+    &nbsp;
+    <table style="width:100%;border: 1px solid black;">
+      <tr>
+        <td align="middle" style="font-family:courier;font-size: small">Copyright by This is NOT a Web Design Hands-On(tm)</td>
+
+      </tr>
+    </table>
+
+  </body>
+</html>
