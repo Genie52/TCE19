@@ -18,6 +18,7 @@ def index():
 def participant(name):
     # we are sending variable 'name' as 'name_html' (you can name it as you like!)
     # to '01-Tableau-NamePass.html' and we can use it to build dynamic HTML content!
+    # HTML files are expected to be in 'templates' folder
     return render_template('01-Tableau-NamePass.html',name_html=name)
 
 #------- PASTE CODE HERE!! <<< START >>> ------------------
